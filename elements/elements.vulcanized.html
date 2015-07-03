@@ -11365,12 +11365,21 @@ module.exports = Array.isArray || function (arr) {
       app.route = 'home';
     });
 
-    page('/users', function () {
-      app.route = 'users';
+    page('/members', function () {
+      app.route = 'members';
     });
 
-    page('/users/:name', function (data) {
-      app.route = 'user-info';
+    page('/members/:name', function (data) {
+      app.route = 'member-info';
+      app.params = data.params;
+    });
+
+    page('/jobs', function () {
+      app.route = 'jobs';
+    });
+
+    page('/jobs/:id', function (data) {
+      app.route = 'job-info';
       app.params = data.params;
     });
 
