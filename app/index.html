@@ -80,17 +80,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         <!-- Drawer Content -->
           <paper-menu class="list" attr-for-selected="data-route" selected="{{route}}" on-iron-select="onMenuSelect">
-              <a data-route="home" href="/">
+              <a data-route="home" href="#!/">
                 <iron-icon icon="home"></iron-icon>
                 <span>Home</span>
               </a>
 
-              <a data-route="users" href="/users">
+              <a data-route="members" href="#!/members">
                 <iron-icon icon="info"></iron-icon>
-                <span>Users</span>
+                <span>Members</span>
               </a>
 
-              <a data-route="contact" href="/contact">
+              <a data-route="jobs" href="#!/jobs">
+                <iron-icon icon="info"></iron-icon>
+                <span>Jobs</span>
+              </a>
+
+              <a data-route="contact" href="#!/contact">
                 <iron-icon icon="mail"></iron-icon>
                 <span>Contact</span>
               </a>
@@ -153,18 +158,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             </section>
 
-            <section data-route="users">
+            <section data-route="members">
               <paper-material elevation="1">
-                <h2 class="paper-font-display2">Users</h2>
-                <p>This is the users section</p>
-                <a href="/users/Rob">Rob</a>
+                <h2 class="paper-font-display2">Members</h2>
+                <p>This is the members section</p>
+                <a href="/members/Rob">Rob</a>
               </paper-material>
             </section>
 
-            <section data-route="user-info">
+            <section data-route="member-info">
               <paper-material elevation="1">
                 <h2 class="paper-font-display2">
-                User:<span>{{params.name}}</span>
+                Member:<span>{{params.name}}</span>
+                </h2>
+                <div>This is <span>{{params.name}}</span>'s section</div>
+              </paper-material>
+            </section>
+
+            <section data-route="jobs">
+              <paper-material elevation="1">
+                <h2 class="paper-font-display2">Jobs</h2>
+                <p>This is the jobs section</p>
+                <a href="/jobs/Job">Job</a>
+              </paper-material>
+            </section>
+
+            <section data-route="job-info">
+              <paper-material elevation="1">
+                <h2 class="paper-font-display2">
+                Job:<span>{{params.name}}</span>
                 </h2>
                 <div>This is <span>{{params.name}}</span>'s section</div>
               </paper-material>
