@@ -57,9 +57,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild-->
 
-  <!-- build:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
-  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-  <!-- endbuild -->
+  <!-- b-uild:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
+  <!-- <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script> -->
+  <!-- e-ndbuild -->
+
+  <script>
+    if ('registerElement' in document
+     && 'createShadowRoot' in HTMLElement.prototype
+     && 'import' in document.createElement('link')
+     && 'content' in document.createElement('template')) {
+      (function () {
+        function ready() {
+          setTimeout(function () {
+            document.dispatchEvent(new CustomEvent('WebComponentsReady', {
+              bubbles: true
+            }));
+          });
+        }
+        if (document.readyState === 'complete' || document.readyState === 'interactive') {
+          ready();
+        } else {
+          window.addEventListener('DOMContentLoaded', ready);
+        }
+      })();
+    } else {
+      document.write('<script src="bower_components\/webcomponentsjs\/webcomponents.min.js"><\/script>');
+    }
+  </script>
 
   <!-- will be replaced with elements/elements.vulcanized.html -->
   <link rel="import" href="elements/elements.html">
