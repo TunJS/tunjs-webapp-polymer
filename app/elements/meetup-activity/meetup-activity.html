@@ -33,7 +33,7 @@
     },
 
     fetch: function() {
-      fetch('http://api.meetup.com/2/activity' + fetch.utils.queryParams({
+      fetch('https://api.meetup.com/2/activity' + fetch.utils.queryParams({
           group_id: this.group,
           page: 1000,
           key: this.key

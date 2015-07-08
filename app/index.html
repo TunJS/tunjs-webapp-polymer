@@ -102,6 +102,20 @@
 
 <body unresolved class="fullbleed layout vertical">
   <span id="browser-sync-binding"></span>
+
+  <div id="fake">
+    <fake-paper-header-panel>
+      <fake-paper-toolbar id="mainToolbar">
+        <fake-paper-icon-button id="paperToggle" icon="menu"></fake-paper-icon-button>
+        <span class="flex"></span>
+        <fake-paper-icon-button icon="refresh"></fake-paper-icon-button>
+        <fake-paper-icon-button icon="search"></fake-paper-icon-button>
+        <div class="middle paper-font-display2 app-name">TunJS</div>
+        <div class="bottom title"></div>
+      </fake-paper-toolbar>
+      <div class="content"></div>
+    </fake-paper-header-panel>
+  </div>
   <template is="dom-bind" id="app">
 
     <paper-drawer-panel id="paperDrawerPanel">
