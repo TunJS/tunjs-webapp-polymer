@@ -1,20 +1,10 @@
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
-
 <!doctype html>
-<html lang="">
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
   <title>TunJS</title>
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
@@ -57,32 +47,52 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild-->
 
-  <!-- b-uild:js bower_components/webcomponentsjs/webcomponents-lite.min.js -->
-  <!-- <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script> -->
+  <!-- b-uild:js bower_components/webcomponentsjs/webcomponents.min.js -->
+  <!-- <script src="bower_components/webcomponentsjs/webcomponents.js"></script> -->
   <!-- e-ndbuild -->
 
   <script>
-    if ('registerElement' in document
-     && 'createShadowRoot' in HTMLElement.prototype
-     && 'import' in document.createElement('link')
-     && 'content' in document.createElement('template')) {
-      (function () {
-        function ready() {
-          setTimeout(function () {
-            document.dispatchEvent(new CustomEvent('WebComponentsReady', {
-              bubbles: true
-            }));
-          });
-        }
-        if (document.readyState === 'complete' || document.readyState === 'interactive') {
-          ready();
-        } else {
-          window.addEventListener('DOMContentLoaded', ready);
-        }
-      })();
-    } else {
-      document.write('<script src="bower_components\/webcomponentsjs\/webcomponents.min.js"><\/script>');
-    }
+  var _polyfills = [];
+  if ('Promise' in window &&
+    'resolve' in window.Promise &&
+    'reject' in window.Promise &&
+    'all' in window.Promise &&
+    'race' in window.Promise &&
+    (function() {
+      var resolve;
+      new window.Promise(function(r) {
+        resolve = r;
+      });
+      return typeof resolve === 'function';
+    }())) {} else {
+    // document.write('<script src="bower_components\/es6-promise\/promise.min.js"><\/script>');
+    _polyfills.push('promise');
+  }
+  if ('fetch' in window) {} else {
+    // document.write('<script src="bower_components\/fetch\/fetch.js"><\/script>');
+    _polyfills.push('fetch');
+  }
+  if (_polyfills.length) {
+    document.write('<script src="\/\/cdn.polyfill.io\/v1\/polyfill.min.js?features=' + _polyfills.join(',') + '"><\/script>');
+  }
+  if ('registerElement' in document && 'createShadowRoot' in HTMLElement.prototype && 'import' in document.createElement('link') && 'content' in document.createElement('template')) {
+    (function() {
+      function ready() {
+        setTimeout(function() {
+          document.dispatchEvent(new CustomEvent('WebComponentsReady', {
+            bubbles: true
+          }));
+        });
+      }
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        ready();
+      } else {
+        window.addEventListener('DOMContentLoaded', ready);
+      }
+    })();
+  } else {
+    document.write('<script src="bower_components\/webcomponentsjs\/webcomponents.min.js"><\/script>');
+  }
   </script>
 
   <!-- will be replaced with elements/elements.vulcanized.html -->
@@ -103,29 +113,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         </paper-toolbar>
 
         <!-- Drawer Content -->
-          <paper-menu class="list" attr-for-selected="data-route" selected="{{route}}" on-iron-select="onMenuSelect">
-              <a data-route="home" href="#!/">
-                <iron-icon icon="home"></iron-icon>
-                <span>Home</span>
-              </a>
+        <paper-menu class="list" attr-for-selected="data-route" selected="{{route}}" on-iron-select="onMenuSelect">
+          <a data-route="home" href="#!/">
+            <iron-icon icon="home"></iron-icon>
+            <span>Home</span>
+          </a>
 
-              <a data-route="members" href="#!/members">
-                <iron-icon icon="info"></iron-icon>
-                <span>Members</span>
-              </a>
+          <a data-route="members" href="#!/members">
+            <iron-icon icon="info"></iron-icon>
+            <span>Members</span>
+          </a>
 
-              <a data-route="jobs" href="#!/jobs">
-                <iron-icon icon="info"></iron-icon>
-                <span>Jobs</span>
-              </a>
+          <a data-route="jobs" href="#!/jobs">
+            <iron-icon icon="info"></iron-icon>
+            <span>Jobs</span>
+          </a>
 
-              <a data-route="contact" href="#!/contact">
-                <iron-icon icon="mail"></iron-icon>
-                <span>Contact</span>
-              </a>
-          </paper-menu>
+          <a data-route="contact" href="#!/contact">
+            <iron-icon icon="mail"></iron-icon>
+            <span>Contact</span>
+          </a>
+        </paper-menu>
       </div>
-      <paper-header-panel main mode="waterfall-tall">
+      <paper-header-panel main mode="waterfall">
 
         <!-- Main Toolbar -->
         <paper-toolbar id="mainToolbar">
@@ -150,6 +160,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
             <section data-route="home">
               <paper-material elevation="1">
+                <h2>Google+ Community</h2>
+                <google-plus-activity key="GOOGLE_PLUS_KEY" i-community="107522288765560200646" community="Tunis JavaScript Meetup Group"></google-plus-activity>
+              </paper-material>
+              <paper-material elevation="1">
+                <h2>Meetup Group</h2>
+                <meetup-activity key="MEETUP_KEY" group="7346152"></meetup-activity>
+              </paper-material>
+              <paper-material elevation="1">
+                <h2>Meetup Group</h2>
+                <meetup-members key="MEETUP_KEY" group="7346152"></meetup-members>
+              </paper-material>
+              <paper-material elevation="1">
                 <my-greeting></my-greeting>
 
                 <p class="paper-font-subhead">You now have:</p>
@@ -167,15 +189,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 <p>Copyright (c) 2015 The Polymer Authors. All rights reserved.</p>
                 <p>Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:</p>
                 <ul>
-                <li>Redistributions of source code must retain the above copyright
-                notice, this list of conditions and the following disclaimer.</li>
-                <li>Redistributions in binary form must reproduce the above
-                copyright notice, this list of conditions and the following disclaimer
-                in the documentation and/or other materials provided with the
-                distribution.</li>
-                <li>Neither the name of Google Inc. nor the names of its
-                contributors may be used to endorse or promote products derived from
-                this software without specific prior written permission.</li>
+                  <li>Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.</li>
+                  <li>Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+                  </li>
+                  <li>Neither the name of Google Inc. nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.</li>
                 </ul>
                 <p>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</p>
               </paper-material>
@@ -186,7 +203,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <paper-material elevation="1">
                 <h2 class="paper-font-display2">Members</h2>
                 <p>This is the members section</p>
-                <a href="/members/Rob">Rob</a>
+                <a href="#!/members/Rob">Rob</a>
               </paper-material>
             </section>
 
@@ -203,7 +220,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <paper-material elevation="1">
                 <h2 class="paper-font-display2">Jobs</h2>
                 <p>This is the jobs section</p>
-                <a href="/jobs/Job">Job</a>
+                <a href="#!/jobs/Job">Job</a>
               </paper-material>
             </section>
 
@@ -228,17 +245,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       </paper-header-panel>
     </paper-drawer-panel>
 
-    <paper-toast id="caching-complete"
-                 duration="6000"
-                 text="Caching complete! This app will work offline.">
+    <paper-toast id="caching-complete" duration="6000" text="Caching complete! This app will work offline.">
     </paper-toast>
 
-    <platinum-sw-register auto-register
-                          clients-claim
-                          skip-waiting
-                          on-service-worker-installed="displayInstalledToast">
-      <platinum-sw-cache default-cache-strategy="networkFirst"
-                         precache-file="precache.json">
+    <platinum-sw-register auto-register clients-claim skip-waiting on-service-worker-installed="displayInstalledToast">
+      <platinum-sw-cache default-cache-strategy="networkFirst" precache-file="precache.json">
       </platinum-sw-cache>
     </platinum-sw-register>
 
