@@ -33,7 +33,7 @@
     },
 
     fetch: function(){
-      fetch('https://www.googleapis.com/plus/v1/activities' + fetch.utils.queryParams({
+      return fetch('https://www.googleapis.com/plus/v1/activities' + fetch.utils.queryParams({
           query: this.community,
           key: this.key
         }))

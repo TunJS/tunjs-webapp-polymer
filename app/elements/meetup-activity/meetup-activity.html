@@ -7,7 +7,7 @@
   <template>
     <ul>
       <template is="dom-repeat" items="{{items}}">
-        <li><span class="paper-font-body1">{{item}}</span></li>
+        <li><span class="paper-font-body1">{{item.title}}</span></li>
       </template>
     </ul>
   </template>
@@ -33,17 +33,16 @@
     },
 
     fetch: function() {
-      fetch('https://api.meetup.com/2/activity' + fetch.utils.queryParams({
+      return fetch.jsonp('https://api.meetup.com/activity' + fetch.utils.queryParams({
           group_id: this.group,
           page: 1000,
           key: this.key
         }))
-        .then(fetch.utils.checkStatus)
         .then(fetch.utils.parseJSON)
         .then((function(data) {
-          this.items = data.items;
-        }).bind(this)).catch(function(ex) {
-        });
+          console.log(arguments)
+          this.items = data.results;
+        }).bind(this)).catch(function(ex) {});
     },
 
     ready: function() {

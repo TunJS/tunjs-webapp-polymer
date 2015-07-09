@@ -44,24 +44,23 @@ window.GOOGLE_PLUS_KEY = 'AIzaSyDIeycbdMumGfVW36NPu5r-DgmFQBPxGnM';
 
   fetch.utils = {};
 
-  fetch.utils.parseJSON = function parseJSON(response) {
-    return response.json();
-  };
-
-  fetch.utils.checkStatus = function checkStatus(response) {
-    if (response.status >= 200 && response.status < 300) {
-      return response;
-    } else {
-      var error = new Error(response.statusText);
-      error.response = response;
-      throw error;
-    }
-  };
-
   fetch.utils.queryParams = function queryParams(params) {
     return '?' + Object.keys(params).map(function (key) {
       return encodeURIComponent(key) + '=' + encodeURIComponent(params[key]);
     }).join('&');
+  };
+
+  fetch.utils.checkStatus = function checkStatus(response) {
+    console.log('checkStatus', response);
+    if (response.status >= 200 && response.status < 300) {
+      return Promise.resolve(response);
+    } else {
+      return Promise.reject(new Error(response.statusText));
+    }
+  };
+
+  fetch.utils.parseJSON = function parseJSON(response) {
+    return response.json();
   };
 
 })(document);
