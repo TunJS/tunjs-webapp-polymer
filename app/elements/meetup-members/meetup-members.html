@@ -2,14 +2,20 @@
   <style>
   :host {
     display: block;
+    /*@apply(--layout)*/
+    /*@apply(--layout-horizontal)*/
+    /*@apply(--layout-w1rap)*/
+  }
+  paper-material {
+    /*@apply(--layout-flex)*/
   }
   </style>
   <template>
-    <ul>
-      <template is="dom-repeat" items="{{items}}">
-        <li><span class="paper-font-body1">{{item.name}}</span></li>
-      </template>
-    </ul>
+    <template is="dom-repeat" items="{{items}}">
+      <paper-material elevation="1">
+        <span class="paper-font-body1">{{item.name}}</span>
+      </paper-material>
+    </template>
   </template>
 </dom-module>
 <script>

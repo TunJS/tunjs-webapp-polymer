@@ -1,0 +1,18 @@
+<script>
+Polymer({
+  is: 'html-bind',
+  properties: {
+    content: {
+      type: String,
+      value: '',
+      observer: 'update',
+    }
+  },
+  ready: function() {
+    this.update();
+  },
+  update: function() {
+    Polymer.dom(this.root).innerHTML = this.content;
+  },
+});
+</script>
