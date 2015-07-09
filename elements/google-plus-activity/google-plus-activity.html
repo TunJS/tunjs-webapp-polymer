@@ -1,0 +1,54 @@
+<dom-module id="google-plus-activity">
+  <style>
+  :host {
+    display: block;
+  }
+  </style>
+  <template>
+    <ul>
+      <template is="dom-repeat" items="{{items}}">
+        <li><span class="paper-font-body1"><safe-html bind="[[item.object.content]]"></safe-html></li>
+      </template>
+    </ul>
+  </template>
+</dom-module>
+<script>
+(function() {
+  Polymer({
+    is: 'google-plus-activity',
+
+    properties: {
+      key: {
+        type: String,
+        readonly: true
+      },
+      community: {
+        type: String,
+        readonly: true
+      },
+      items: {
+        type: Array,
+        notify: true,
+      }
+    },
+
+    fetch: function(){
+      return fetch('https://www.googleapis.com/plus/v1/activities' + fetch.utils.queryParams({
+          query: this.community,
+          key: this.key
+        }))
+        .then(fetch.utils.checkStatus)
+        .then(fetch.utils.parseJSON)
+        .then((function(data) {
+          this.items = data.items;
+        }).bind(this)).catch(function(ex) {
+        });
+    },
+
+    ready: function() {
+      this.key = window[this.key];
+      this.fetch();
+    }
+  });
+})();
+</script>

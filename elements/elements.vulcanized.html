@@ -9806,11 +9806,12 @@ styles. All other styles should exist as single lines."
    * `<platinum-sw-cache>` needs to be a child element of `<platinum-sw-register>`.
    * A simple, yet useful configuration is
    *
-   *     <platinum-sw-register>
+   *     <platinum-sw-register auto-register>
    *       <platinum-sw-cache></platinum-sw-cache>
    *     </platinum-sw-register>
    *
-   * This is enough to have all of the (local) resources your site uses cached at runtime.
+   * This is enough to have all of the resources your site uses cached at runtime, both local and
+   * cross-origin.
    * (It uses the default `defaultCacheStrategy` of "networkFirst".)
    * When there's a network available, visits to your site will go against the network copy of the
    * resources, but if someone visits your site when they're offline, all the cached resources will
@@ -9823,7 +9824,7 @@ styles. All other styles should exist as single lines."
 
     properties: {
       /**
-       * The caching strategy used for all local (i.e. same-origin) requests.
+       * The caching strategy used for all requests, both for local and cross-origin resources.
        *
        * For a list of strategies, see the [`sw-toolbox` documentation](https://github.com/GoogleChrome/sw-toolbox#built-in-handlers).
        * Specify a strategy as a string, without the "toolbox" prefix. E.g., for
@@ -10117,7 +10118,7 @@ styles. All other styles should exist as single lines."
 
       _constructServiceWorkerUrl: function() {
         var paramsPromises = [];
-        var children = Polymer.dom(this).childNodes;
+        var children = Polymer.dom(this).children;
         for (var i = 0; i < children.length; i++) {
           if (typeof children[i]._getParameters === 'function') {
             paramsPromises.push(children[i]._getParameters(baseURI));
@@ -10333,9 +10334,9 @@ styles. All other styles should exist as single lines."
   }
 
   /* Height of the scroll area */
-  .content {
+  /* .content {
     height: 900px;
-  }
+  }*/
 
   /* Breakpoints */
 
@@ -11356,43 +11357,46 @@ module.exports = Array.isArray || function (arr) {
 },{}]},{},[1])(1)
 });</script>
 <script>
-  window.addEventListener('WebComponentsReady', function() {
+window.addEventListener('WebComponentsReady', function() {
 
-    // We use Page.js for routing. This is a Micro
-    // client-side router inspired by the Express router
-    // More info: https://visionmedia.github.io/page.js/
-    page('/', function () {
-      app.route = 'home';
-    });
+  var app = document.querySelector('#app');
 
-    page('/members', function () {
-      app.route = 'members';
-    });
-
-    page('/members/:name', function (data) {
-      app.route = 'member-info';
-      app.params = data.params;
-    });
-
-    page('/jobs', function () {
-      app.route = 'jobs';
-    });
-
-    page('/jobs/:id', function (data) {
-      app.route = 'job-info';
-      app.params = data.params;
-    });
-
-    page('/contact', function () {
-      app.route = 'contact';
-    });
-
-    // add #! before urls
-    page({
-      hashbang: true
-    });
-
+  page('/', function() {
+    app.route = 'home';
   });
+
+  page('/members', function() {
+    app.route = 'members';
+  });
+
+  page('/members/:name', function(data) {
+    app.route = 'member-info';
+    app.params = data.params;
+  });
+
+  page('/jobs', function() {
+    app.route = 'jobs';
+  });
+
+  page('/jobs/:id', function(data) {
+    app.route = 'job-info';
+    app.params = data.params;
+  });
+
+  page('/contact', function() {
+    app.route = 'contact';
+  });
+
+  page('*', function() {
+    page.redirect('/');
+  });
+
+  // add #! before urls
+  page({
+    hashbang: true
+  });
+
+});
 </script>
 </head><body><div hidden="" by-vulcanize=""><dom-module id="iron-icon" assetpath="../bower_components/iron-icon/">
 
@@ -14337,5 +14341,190 @@ iron-selector:not(.narrow-layout) #main ::content [paper-drawer-toggle] {
       }
     });
   })();
+</script>
+<dom-module id="safe-html" assetpath="common/">
+
+  <template>
+    <span>{{bind}}</span>
+  </template>
+
+  <script>
+  Polymer({
+    is: 'safe-html',
+    properties: {
+      bind: {
+        type: String,
+        value: ''
+      }
+    },
+    ready: function() {
+      this.innerHTML = this.bind;
+    }
+  });
+  </script>
+
+</dom-module>
+<dom-module id="google-plus-activity" assetpath="google-plus-activity/">
+  <style>
+  :host {
+    display: block;
+  }
+  </style>
+  <template>
+    <ul>
+      <template is="dom-repeat" items="{{items}}">
+        <li><span class="paper-font-body1"><safe-html bind="[[item.object.content]]"></safe-html></span></li>
+      </template>
+    </ul>
+  </template>
+</dom-module>
+<script>
+(function() {
+  Polymer({
+    is: 'google-plus-activity',
+
+    properties: {
+      key: {
+        type: String,
+        readonly: true
+      },
+      community: {
+        type: String,
+        readonly: true
+      },
+      items: {
+        type: Array,
+        notify: true,
+      }
+    },
+
+    fetch: function(){
+      return fetch('https://www.googleapis.com/plus/v1/activities' + fetch.utils.queryParams({
+          query: this.community,
+          key: this.key
+        }))
+        .then(fetch.utils.checkStatus)
+        .then(fetch.utils.parseJSON)
+        .then((function(data) {
+          this.items = data.items;
+        }).bind(this)).catch(function(ex) {
+        });
+    },
+
+    ready: function() {
+      this.key = window[this.key];
+      this.fetch();
+    }
+  });
+})();
+</script>
+<dom-module id="meetup-activity" assetpath="meetup-activity/">
+  <style>
+  :host {
+    display: block;
+  }
+  </style>
+  <template>
+    <ul>
+      <template is="dom-repeat" items="{{items}}">
+        <li><span class="paper-font-body1">{{item.title}}</span></li>
+      </template>
+    </ul>
+  </template>
+</dom-module>
+<script>
+(function() {
+  Polymer({
+    is: 'meetup-activity',
+
+    properties: {
+      key: {
+        type: String,
+        readonly: true
+      },
+      group: {
+        type: String,
+        readonly: true
+      },
+      items: {
+        type: Array,
+        notify: true,
+      }
+    },
+
+    fetch: function() {
+      return fetch.jsonp('https://api.meetup.com/activity' + fetch.utils.queryParams({
+          group_id: this.group,
+          page: 1000,
+          key: this.key
+        }))
+        .then(fetch.utils.parseJSON)
+        .then((function(data) {
+          console.log(arguments)
+          this.items = data.results;
+        }).bind(this)).catch(function(ex) {});
+    },
+
+    ready: function() {
+      this.key = window[this.key];
+      this.fetch();
+    }
+
+  });
+})();
+</script>
+<dom-module id="meetup-members" assetpath="meetup-members/">
+  <style>
+  :host {
+    display: block;
+  }
+  </style>
+  <template>
+    <ul>
+      <template is="dom-repeat" items="{{items}}">
+        <li><span class="paper-font-body1">{{item.name}}</span></li>
+      </template>
+    </ul>
+  </template>
+</dom-module>
+<script>
+(function() {
+  Polymer({
+    is: 'meetup-members',
+
+    properties: {
+      key: {
+        type: String,
+        readonly: true
+      },
+      group: {
+        type: String,
+        readonly: true
+      },
+      items: {
+        type: Array,
+        notify: true,
+      }
+    },
+
+    fetch: function() {
+      return fetch.jsonp('https://api.meetup.com/2/members' + fetch.utils.queryParams({
+          group_id: this.group,
+          page: 1000,
+          key: this.key
+        }))
+        .then(fetch.utils.parseJSON)
+        .then((function(data) {
+          console.log(arguments)
+          this.items = data.results;
+        }).bind(this)).catch(function(ex) {});
+    },
+
+    ready: function() {
+      this.key = window[this.key];
+      this.fetch();
+    }
+  });
+})();
 </script>
 </div></body></html>

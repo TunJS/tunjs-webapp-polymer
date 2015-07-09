@@ -1,0 +1,54 @@
+<dom-module id="meetup-members">
+  <style>
+  :host {
+    display: block;
+  }
+  </style>
+  <template>
+    <ul>
+      <template is="dom-repeat" items="{{items}}">
+        <li><span class="paper-font-body1">{{item.name}}</span></li>
+      </template>
+    </ul>
+  </template>
+</dom-module>
+<script>
+(function() {
+  Polymer({
+    is: 'meetup-members',
+
+    properties: {
+      key: {
+        type: String,
+        readonly: true
+      },
+      group: {
+        type: String,
+        readonly: true
+      },
+      items: {
+        type: Array,
+        notify: true,
+      }
+    },
+
+    fetch: function() {
+      return fetch.jsonp('https://api.meetup.com/2/members' + fetch.utils.queryParams({
+          group_id: this.group,
+          page: 1000,
+          key: this.key
+        }))
+        .then(fetch.utils.parseJSON)
+        .then((function(data) {
+          console.log(arguments)
+          this.items = data.results;
+        }).bind(this)).catch(function(ex) {});
+    },
+
+    ready: function() {
+      this.key = window[this.key];
+      this.fetch();
+    }
+  });
+})();
+</script>

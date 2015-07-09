@@ -1,0 +1,22 @@
+<dom-module id="safe-html">
+
+  <template>
+    <span>{{bind}}</span>
+  </template>
+
+  <script>
+  Polymer({
+    is: 'safe-html',
+    properties: {
+      bind: {
+        type: String,
+        value: ''
+      }
+    },
+    ready: function() {
+      this.innerHTML = this.bind;
+    }
+  });
+  </script>
+
+</dom-module>
