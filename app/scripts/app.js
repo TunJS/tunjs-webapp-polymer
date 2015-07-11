@@ -37,7 +37,7 @@ window.GOOGLE_PLUS_KEY = 'AIzaSyDIeycbdMumGfVW36NPu5r-DgmFQBPxGnM';
   // Close drawer after menu item is selected if drawerPanel is narrow
   app.onMenuSelect = function () {
     var drawerPanel = document.querySelector('#paperDrawerPanel');
-    if (drawerPanel && drawerPanel.narrow) {
+    if (drawerPanel) {
       drawerPanel.closeDrawer();
     }
   };

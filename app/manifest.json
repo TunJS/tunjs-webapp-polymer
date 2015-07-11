@@ -1,5 +1,6 @@
 {
 	"name": "TunJS",
+  "short_name": "TunJS",
 	"icons": [
 		{
 			"src": "\/android-chrome-36x36.png",

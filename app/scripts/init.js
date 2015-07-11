@@ -22,7 +22,7 @@
     _polyfills.push('fetch');
   }
   if (_polyfills.length) {
-    document.write('<script src="\/\/cdn.polyfill.io\/v1\/polyfill.min.js?features=' + _polyfills.join(',') + '"><\/script>');
+    document.write('<script src="\/\/cdn.polyfill.io\/v1\/polyfill.min.js?features=' + _polyfills.join(',') + '"><\/script>'); // jshint ignore:line
   }
   if ('registerElement' in document && 'createShadowRoot' in HTMLElement.prototype && 'import' in document.createElement('link') && 'content' in document.createElement('template')) {
     (function () {
@@ -40,7 +40,7 @@
       }
     })();
   } else {
-    document.write('<script src="bower_components\/webcomponentsjs\/webcomponents.min.js"><\/script>');
+    document.write('<script src="bower_components\/webcomponentsjs\/webcomponents.min.js"><\/script>'); // jshint ignore:line
   }
   window.Polymer = window.Polymer || {};
   window.Polymer.dom = 'shadow';

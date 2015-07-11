@@ -42,7 +42,10 @@
     color: var(--secondary-text-color);
     background-color: var(--drawer-menu-color);
     border-bottom: var(--drawer-toolbar-border-color);
-    height: 64px;
+  }
+
+  paper-scroll-header-panel {
+    height: 100%;
   }
 
   html /deep/ paper-material {
@@ -83,14 +86,21 @@
     padding: 0 16px;
   }
 
-  #mainToolbar .middle {
+  #mainToolbar .middle-container  {
+    height: 100%;
     margin-left: 48px;
   }
 
-  #mainToolbar.has-shadow .middle {
-    font-size: 20px;
+  #mainToolbar .middle {
+    font-size: 18px;
     padding-bottom: 0;
+  }
+
+  #mainToolbar .bottom {
     margin-left: 48px;
+    /* Required for main area's paper-scroll-header-panel custom condensing transformation */
+    -webkit-transform-origin: left center;
+    transform-origin: left center;
   }
 
   /* Breakpoints */
@@ -100,10 +110,6 @@
 
     .paper-font-display1 {
       font-size: 12px;
-    }
-
-    .app-name {
-      font-size: 26px;
     }
 
     #drawer .paper-toolbar {

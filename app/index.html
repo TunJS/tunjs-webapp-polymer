@@ -47,17 +47,6 @@
   <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild-->
 
-  <!-- build:js scripts/init.js -->
-  <script src="scripts/init.js"></script>
-  <!-- endbuild -->
-
-  <!-- build:js bower_components/fetchp/fetchp.js -->
-  <script src="bower_components/fetchp/fetchp.js"></script>
-  <!-- endbuild -->
-
-  <!-- will be replaced with elements/elements.vulcanized.html -->
-  <link rel="import" href="elements/elements.html">
-  <!-- endreplace-->
 </head>
 
 <body unresolved class="fullbleed layout vertical">
@@ -77,10 +66,23 @@
     </fake-paper-header-panel>
   </div>
 
+  <!-- build:js scripts/init.js -->
+  <script src="scripts/init.js"></script>
+  <!-- endbuild -->
+
+  <!-- build:js bower_components/fetchp/fetchp.js -->
+  <script src="bower_components/fetchp/fetchp.js"></script>
+  <!-- endbuild -->
+
+  <!-- will be replaced with elements/elements.vulcanized.html -->
+  <link rel="import" href="elements/elements.html">
+  <!-- endreplace-->
+
   <template is="dom-bind" id="app">
 
     <paper-drawer-panel id="paperDrawerPanel">
-      <div drawer>
+      <!-- Drawer Scroll Header Panel -->
+      <paper-scroll-header-panel drawer fixed>
 
         <!-- Drawer Toolbar -->
         <paper-toolbar id="drawerToolbar">
@@ -88,29 +90,31 @@
         </paper-toolbar>
 
         <!-- Drawer Content -->
-        <paper-menu class="list" attr-for-selected="data-route" selected="{{route}}" on-iron-select="onMenuSelect">
-          <a data-route="home" href="#!/">
+        <paper-menu class="list" attr-for-selected="data-route" selected="[[route]]" on-iron-select="onMenuSelect">
+          <a data-route="home" href="/">
             <iron-icon icon="home"></iron-icon>
             <span>Home</span>
           </a>
 
-          <a data-route="members" href="#!/members">
+          <a data-route="members" href="/members">
             <iron-icon icon="info"></iron-icon>
             <span>Members</span>
           </a>
 
-          <a data-route="jobs" href="#!/jobs">
+          <a data-route="jobs" href="/jobs">
             <iron-icon icon="info"></iron-icon>
             <span>Jobs</span>
           </a>
 
-          <a data-route="contact" href="#!/contact">
+          <a data-route="contact" href="/contact">
             <iron-icon icon="mail"></iron-icon>
             <span>Contact</span>
           </a>
         </paper-menu>
-      </div>
-      <paper-header-panel main mode="waterfall">
+      </paper-scroll-header-panel>
+
+      <!-- Main Area -->
+      <paper-scroll-header-panel main fixed>
 
         <!-- Main Toolbar -->
         <paper-toolbar id="mainToolbar">
@@ -122,10 +126,9 @@
           <paper-icon-button icon="search"></paper-icon-button>
 
           <!-- Application name -->
-          <div class="middle paper-font-display2 app-name">TunJS</div>
-
-          <!-- Application sub title -->
-          <div class="bottom title"></div>
+          <div class="middle middle-container center horizontal layout">
+            <div class="app-name">TunJS</div>
+          </div>
 
         </paper-toolbar>
 
@@ -176,7 +179,7 @@
               <paper-material elevation="2">
                 <h2 class="paper-font-display2">Jobs</h2>
                 <p>This is the jobs section</p>
-                <a href="#!/jobs/Job">Job</a>
+                <a href="/jobs/Job">Job</a>
               </paper-material>
             </section>
 
@@ -198,16 +201,16 @@
 
           </iron-pages>
         </div>
-      </paper-header-panel>
+      </paper-scroll-header-panel>
     </paper-drawer-panel>
 
-    <paper-toast id="caching-complete" duration="6000" text="Caching complete! This app will work offline.">
+    <!-- <paper-toast id="caching-complete" duration="6000" text="Caching complete! This app will work offline.">
     </paper-toast>
 
     <platinum-sw-register auto-register clients-claim skip-waiting on-service-worker-installed="displayInstalledToast">
       <platinum-sw-cache default-cache-strategy="networkFirst" precache-file="precache.json">
       </platinum-sw-cache>
-    </platinum-sw-register>
+    </platinum-sw-register> -->
 
   </template>
 
