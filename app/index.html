@@ -47,24 +47,43 @@
   <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild-->
 
+  <script>
+  if ('registerElement' in document && 'createShadowRoot' in HTMLElement.prototype && 'import' in document.createElement('link') && 'content' in document.createElement('template')) {
+    (function() {
+      function ready() {
+        console.log('firing WebComponentsReady')
+        setTimeout(function() {
+          document.dispatchEvent(new CustomEvent('WebComponentsReady', {
+            bubbles: true
+          }), 1000);
+        });
+      }
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        ready();
+      } else {
+        window.addEventListener('DOMContentLoaded', ready);
+      }
+    })();
+  } else {
+    document.write('<script src="bower_components\/webcomponentsjs\/webcomponents.min.js"><\/script>'); // jshint ignore:line
+  }
+  </script>
 </head>
 
 <body unresolved class="fullbleed layout vertical">
   <span id="browser-sync-binding"></span>
 
-  <div id="fake">
-    <fake-paper-header-panel>
-      <fake-paper-toolbar id="mainToolbar">
-        <!-- <fake-paper-icon-button id="paperToggle" icon="menu"></fake-paper-icon-button>
-        <span class="flex"></span>
-        <fake-paper-icon-button icon="refresh"></fake-paper-icon-button>
-        <fake-paper-icon-button icon="search"></fake-paper-icon-button>
-        <div class="middle paper-font-display2 app-name">TunJS</div>
-        <div class="bottom title"></div> -->
-      </fake-paper-toolbar>
-      <div class="content"></div>
-    </fake-paper-header-panel>
-  </div>
+  <ph-paper-header-panel id="placeholder">
+    <ph-paper-toolbar id="mainToolbar">
+      <!-- <ph-paper-icon-button id="paperToggle" icon="menu"></ph-paper-icon-button>
+      <span class="flex"></span>
+      <ph-paper-icon-button icon="refresh"></ph-paper-icon-button>
+      <ph-paper-icon-button icon="search"></ph-paper-icon-button>
+      <div class="middle paper-font-display2 app-name">TunJS</div>
+      <div class="bottom title"></div> -->
+    </ph-paper-toolbar>
+    <div class="content"></div>
+  </ph-paper-header-panel>
 
   <template is="dom-bind" id="app">
 
@@ -202,9 +221,17 @@
 
   </template>
 
+  <!-- build:js scripts/init.js -->
+  <script src="scripts/init.js"></script>
+  <!-- endbuild-->
+
   <!-- will be replaced with elements/elements.vulcanized.html -->
   <link rel="import" href="elements/elements.html">
   <!-- endreplace-->
+
+  <!-- build:js scripts/app.js -->
+  <script src="scripts/app.js"></script>
+  <!-- endbuild-->
 
 </body>
 
