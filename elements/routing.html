@@ -4,6 +4,16 @@ window.addEventListener('WebComponentsReady', function() {
 
   var app = document.querySelector('#app');
 
+  var headerPanel;
+
+  headerPanel = document.querySelector('paper-scroll-header-panel[main]');
+
+  page('*', function(context, next) {
+    if (headerPanel)
+      headerPanel.scroller.scrollTop = 0;
+    next();
+  });
+
   page('/', function() {
     app.route = 'home';
   });
@@ -12,29 +22,28 @@ window.addEventListener('WebComponentsReady', function() {
     app.route = 'members';
   });
 
-  page('/members/:name', function(data) {
+  page('/members/:name', function(context) {
     app.route = 'member-info';
-    app.params = data.params;
+    app.params = context.params;
   });
 
   page('/jobs', function() {
     app.route = 'jobs';
   });
 
-  page('/jobs/:id', function(data) {
+  page('/jobs/:id', function(context) {
     app.route = 'job-info';
-    app.params = data.params;
+    app.params = context.params;
   });
 
-  page('/contact', function() {
+  page('/contact', function(context) {
     app.route = 'contact';
   });
 
-  // page('*', function() {
-  //   page.redirect('/');
-  // });
+  page('*', function(context) {
+    page.redirect('/');
+  });
 
-  // add #! before urls
   page({
     hashbang: true
   });
