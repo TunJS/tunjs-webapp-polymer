@@ -6,9 +6,7 @@ window.addEventListener('WebComponentsReady', function() {
 
   var headerPanel;
 
-  app.addEventListener('dom-change', function() {
-    headerPanel = document.querySelector('paper-scroll-header-panel[main]');
-  });
+  headerPanel = document.querySelector('paper-scroll-header-panel[main]');
 
   page('*', function(context, next) {
     if (headerPanel)
