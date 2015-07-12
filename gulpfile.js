@@ -133,6 +133,10 @@ gulp.task('html', function () {
     .pipe($.if('*.css', $.cssmin()))
     .pipe(assets.restore())
     .pipe($.useref())
+    // Inline source
+    .pipe($.inlineSource({
+      compress: false
+    }))
     // Minify Any HTML
     .pipe($.if('*.html', $.minifyHtml({
       quotes: true,

@@ -23,6 +23,4 @@
   if (_polyfills.length) {
     document.write('<script src="\/\/cdn.polyfill.io\/v1\/polyfill.min.js?features=' + _polyfills.join(',') + '"><\/script>'); // jshint ignore:line
   }
-  window.Polymer = window.Polymer || {};
-  window.Polymer.dom = 'shadow';
 })(window, window.document);

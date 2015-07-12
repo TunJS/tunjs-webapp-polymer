@@ -6,7 +6,11 @@
   <meta name="description" content="">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
   <title>TunJS</title>
-  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+  <link rel="dns-prefetch" href="//fonts.google.com">
+  <link rel="dns-prefetch" href="//fonts.gstatic.com">
+  <link rel="dns-prefetch" href="//www.googleapis.com">
+  <link rel="dns-prefetch" href="//api.meetup.com">
 
   <!-- Chrome for Android theme color -->
   <meta name="theme-color" content="#FFFFFF">
@@ -43,51 +47,42 @@
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
   <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
 
-  <!-- build:css styles/main.css -->
-  <link rel="stylesheet" href="styles/main.css">
-  <!-- endbuild-->
+  <link inline rel="stylesheet" href="styles/placeholder.css">
 
+  <!-- b-uild:css styles/main.css -->
+  <!-- <link rel="stylesheet" href="styles/main.css"> -->
+  <!-- end-build-->
+
+  <script inline src="../bower_components/loadcss/loadCSS.js"></script>
   <script>
-  if ('registerElement' in document && 'createShadowRoot' in HTMLElement.prototype && 'import' in document.createElement('link') && 'content' in document.createElement('template')) {
-    (function() {
-      function ready() {
-        console.log('firing WebComponentsReady')
-        setTimeout(function() {
-          document.dispatchEvent(new CustomEvent('WebComponentsReady', {
-            bubbles: true
-          }), 1000);
-        });
-      }
-      if (document.readyState === 'complete' || document.readyState === 'interactive') {
-        ready();
-      } else {
-        window.addEventListener('DOMContentLoaded', ready);
-      }
-    })();
-  } else {
-    document.write('<script src="bower_components\/webcomponentsjs\/webcomponents.min.js"><\/script>'); // jshint ignore:line
-  }
+  loadCSS('http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic');
+  loadCSS('styles/main.css');
   </script>
+
+  <script inline src="scripts/webcomponents.js"></script>
+
 </head>
 
-<body unresolved class="fullbleed layout vertical">
+<body unresolved>
   <span id="browser-sync-binding"></span>
 
-  <ph-paper-header-panel id="placeholder">
-    <ph-paper-toolbar id="mainToolbar">
-      <!-- <ph-paper-icon-button id="paperToggle" icon="menu"></ph-paper-icon-button>
+  <div id="placeholder">
+    <ph-paper-header-panel>
+      <ph-paper-toolbar id="mainToolbar">
+        <!-- <ph-paper-icon-button id="paperToggle" icon="menu"></ph-paper-icon-button>
       <span class="flex"></span>
       <ph-paper-icon-button icon="refresh"></ph-paper-icon-button>
       <ph-paper-icon-button icon="search"></ph-paper-icon-button>
       <div class="middle paper-font-display2 app-name">TunJS</div>
       <div class="bottom title"></div> -->
-    </ph-paper-toolbar>
-    <div class="content"></div>
-  </ph-paper-header-panel>
+      </ph-paper-toolbar>
+      <div class="content"></div>
+    </ph-paper-header-panel>
+  </div>
 
   <template is="dom-bind" id="app">
 
-    <paper-drawer-panel id="paperDrawerPanel">
+    <paper-drawer-panel id="paperDrawerPanel" class="fullbleed">
       <!-- Drawer Scroll Header Panel -->
       <paper-scroll-header-panel drawer fixed>
 
@@ -221,8 +216,8 @@
 
   </template>
 
-  <!-- build:js scripts/init.js -->
-  <script src="scripts/init.js"></script>
+  <!-- build:js scripts/polyfills.js -->
+  <script src="scripts/polyfills.js"></script>
   <!-- endbuild-->
 
   <!-- will be replaced with elements/elements.vulcanized.html -->

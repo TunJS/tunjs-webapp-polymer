@@ -9,7 +9,8 @@
     "page": "visionmedia/page.js#~1.6.3",
     "fetch": "~0.9.0",
     "es6-promise": "~2.2.0",
-    "fetchp": "naderio/fetchp#~0.1.1"
+    "fetchp": "naderio/fetchp#~0.1.1",
+    "loadcss": "filamentgroup/loadCSS#~0.1.7"
   },
   "devDependencies": {
     "web-component-tester": "*",
