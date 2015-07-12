@@ -483,15 +483,15 @@ body {
   border-color: #B6B6B6;
 }
 
-body > #fake {
+body > #placeholder {
   display: none;
 }
 
-body[unresolved] > #fake {
+body[unresolved] > #placeholder {
   display: block;
 }
 
-body[unresolved] > #fake fake-paper-header-panel {
+#placeholder ph-paper-header-panel {
   display: block;
   position: absolute;
   top: 0;
@@ -500,7 +500,7 @@ body[unresolved] > #fake fake-paper-header-panel {
   left: 0;
 }
 
-body[unresolved] > #fake fake-paper-header-panel > fake-paper-toolbar {
+#placeholder ph-paper-header-panel > ph-paper-toolbar {
   display: block;
   position: absolute;
   top: 0;
@@ -511,4 +511,11 @@ body[unresolved] > #fake fake-paper-header-panel > fake-paper-toolbar {
   color: #FFFFFF;
 }
 
-body[unresolved] > #fake fake-paper-header-panel > .content {}
+#placeholder ph-paper-header-panel > .content {
+  display: block;
+  position: absolute;
+  top: 56px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
