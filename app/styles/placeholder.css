@@ -8,8 +8,8 @@
 }
 
 #paperDrawerPanel {
-  transition: visibility 1s;
   visibility: visible;
+  transition: visibility 0.4s;
 }
 
 body[unresolved] > #placeholder {
