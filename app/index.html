@@ -12,6 +12,9 @@
   <link rel="dns-prefetch" href="//www.googleapis.com">
   <link rel="dns-prefetch" href="//api.meetup.com">
 
+  <link rel="prefetch" href="http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic">
+  <link rel="prefetch" href="http://fonts.googleapis.com/css?family=Inconsolata:400,700">
+
   <!-- Chrome for Android theme color -->
   <meta name="theme-color" content="#FFFFFF">
 
@@ -49,18 +52,6 @@
 
   <link inline inline-compress rel="stylesheet" href="styles/placeholder.css">
 
-  <!-- b-uild:css styles/main.css -->
-  <!-- <link rel="stylesheet" href="styles/main.css"> -->
-  <!-- end-build-->
-
-  <script inline inline-compress src="../bower_components/loadcss/loadCSS.js"></script>
-  <script>
-  loadCSS('http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic');
-  loadCSS('styles/main.css');
-  </script>
-
-  <script inline src="scripts/webcomponents.js"></script>
-
 </head>
 
 <body unresolved>
@@ -79,6 +70,16 @@
       <div class="content"></div>
     </ph-paper-header-panel>
   </div>
+
+  <!-- b-uild:css styles/main.css -->
+  <!-- <link rel="stylesheet" href="styles/main.css"> -->
+  <!-- end-build-->
+
+  <script inline inline-compress src="../bower_components/loadcss/loadCSS.js"></script>
+  <script>
+  loadCSS('styles/main.css');
+  </script>
+
 
   <template is="dom-bind" id="app">
 
@@ -139,66 +140,77 @@
           <iron-pages attr-for-selected="data-route" selected="{{route}}">
 
             <section data-route="home">
-              <paper-material elevation="1">
-                <h2>Google+ Community</h2>
-                <google-plus-activity key="GOOGLE_PLUS_KEY" i-community="107522288765560200646" community="Tunis JavaScript Meetup Group"></google-plus-activity>
-              </paper-material>
-              <paper-material elevation="2">
-                <h2>Meetup Group</h2>
-                <meetup-activity key="MEETUP_KEY" group="7346152"></meetup-activity>
-              </paper-material>
-              <paper-material elevation="2">
-                <my-greeting></my-greeting>
+              <template is="dom-if" if="{{_is(route, 'home')}}" restamp="true">
+                <paper-material elevation="1">
+                  <h2>Google+ Community</h2>
+                  <google-plus-activity key="GOOGLE_PLUS_KEY" i-community="107522288765560200646" community="Tunis JavaScript Meetup Group"></google-plus-activity>
+                </paper-material>
+                <paper-material elevation="2">
+                  <h2>Meetup Group</h2>
+                  <meetup-activity key="MEETUP_KEY" group="7346152"></meetup-activity>
+                </paper-material>
+                <paper-material elevation="2">
+                  <my-greeting></my-greeting>
 
-                <p class="paper-font-subhead">You now have:</p>
-                <my-list></my-list>
+                  <p class="paper-font-subhead">You now have:</p>
+                  <my-list></my-list>
 
-                <p class="paper-font-body2">Looking for more Web App layouts? Check out our <a href="https://github.com/PolymerElements/app-layout-templates">layouts</a> collection. You can also <a href="http://polymerelements.github.io/app-layout-templates/">preview</a> them live.</p>
-              </paper-material>
-              <paper-material elevation="1">
-                <p class="paper-font-body2">This is another card.</p>
-              </paper-material>
-
+                  <p class="paper-font-body2">Looking for more Web App layouts? Check out our <a href="https://github.com/PolymerElements/app-layout-templates">layouts</a> collection. You can also <a href="http://polymerelements.github.io/app-layout-templates/">preview</a> them live.</p>
+                </paper-material>
+                <paper-material elevation="1">
+                  <p class="paper-font-body2">This is another card.</p>
+                </paper-material>
+              </template>
             </section>
 
             <section data-route="members">
-              <paper-material elevation="2">
-                <h2 class="paper-font-display2">Members</h2>
-              </paper-material>
-              <meetup-members key="MEETUP_KEY" group="7346152"></meetup-members>
+              <template is="dom-if" if="{{_is(route, 'members')}}" restamp="true">
+                <paper-material elevation="2">
+                  <h2 class="paper-font-display2">Members</h2>
+                </paper-material>
+                <meetup-members key="MEETUP_KEY" group="7346152"></meetup-members>
+              </template>
             </section>
 
             <section data-route="member-info">
-              <paper-material elevation="2">
-                <h2 class="paper-font-display2">
+              <template is="dom-if" if="{{_is(route, 'member-info')}}" restamp="true">
+                <paper-material elevation="2">
+                  <h2 class="paper-font-display2">
                 Member:<span>{{params.name}}</span>
                 </h2>
-                <div>This is <span>{{params.name}}</span>'s section</div>
-              </paper-material>
+                  <div>This is <span>{{params.name}}</span>'s section</div>
+                </paper-material>
+              </template>
             </section>
 
             <section data-route="jobs">
-              <paper-material elevation="2">
-                <h2 class="paper-font-display2">Jobs</h2>
-                <p>This is the jobs section</p>
-                <a href="/jobs/Job">Job</a>
-              </paper-material>
+              <template is="dom-if" if="{{_is(route, 'jobs')}}" restamp="true">
+                <paper-material elevation="2">
+                  <h2 class="paper-font-display2">Jobs</h2>
+                  <p>This is the jobs section</p>
+                  <a href="/jobs/Job">Job</a>
+                </paper-material>
+              </template>
             </section>
 
             <section data-route="job-info">
-              <paper-material elevation="2">
-                <h2 class="paper-font-display2">
+              <template is="dom-if" if="{{_is(route, 'job-info')}}" restamp="true">
+                <paper-material elevation="2">
+                  <h2 class="paper-font-display2">
                 Job:<span>{{params.name}}</span>
                 </h2>
-                <div>This is <span>{{params.name}}</span>'s section</div>
-              </paper-material>
+                  <div>This is <span>{{params.name}}</span>'s section</div>
+                </paper-material>
+              </template>
             </section>
 
             <section data-route="contact">
-              <paper-material elevation="2">
-                <h2 class="paper-font-display2">Contact</h2>
-                <p>This is the contact section</p>
-              </paper-material>
+              <template is="dom-if" if="{{_is(route, 'contact')}}" restamp="true">
+                <paper-material elevation="2">
+                  <h2 class="paper-font-display2">Contact</h2>
+                  <p>This is the contact section</p>
+                </paper-material>
+              </template>
             </section>
 
           </iron-pages>
@@ -215,6 +227,8 @@
     </platinum-sw-register> -->
 
   </template>
+
+  <script inline src="scripts/webcomponents.js"></script>
 
   <script inline src="scripts/polyfills.js"></script>
 

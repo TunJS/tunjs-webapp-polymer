@@ -5,7 +5,7 @@
         setTimeout(function () {
           document.dispatchEvent(new CustomEvent('WebComponentsReady', {
             bubbles: true
-          }), 1000);
+          }));
         });
       }
       if (document.readyState === 'complete' || document.readyState === 'interactive') {
