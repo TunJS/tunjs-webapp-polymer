@@ -1,4 +1,3 @@
-
 window.MEETUP_KEY = '5c4b1d264f3925541e45676d73106f1a';
 
 window.GOOGLE_PLUS_KEY = 'AIzaSyDIeycbdMumGfVW36NPu5r-DgmFQBPxGnM';
@@ -15,9 +14,8 @@ window.GOOGLE_PLUS_KEY = 'AIzaSyDIeycbdMumGfVW36NPu5r-DgmFQBPxGnM';
     document.querySelector('#caching-complete').show();
   };
 
-  app._is = function (a, b) {
-    console.log('is', a, b);
-    return a === b;
+  app._is = function (route, value) {
+    return route === value;
   };
 
   // Listen for template bound event to know when bindings

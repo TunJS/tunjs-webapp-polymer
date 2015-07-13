@@ -71,15 +71,14 @@
     </ph-paper-header-panel>
   </div>
 
-  <!-- b-uild:css styles/main.css -->
+  <!-- _build:css styles/main.css -->
   <!-- <link rel="stylesheet" href="styles/main.css"> -->
-  <!-- end-build-->
+  <!-- _endbuild-->
 
   <script inline inline-compress src="../bower_components/loadcss/loadCSS.js"></script>
   <script>
   loadCSS('styles/main.css');
   </script>
-
 
   <template is="dom-bind" id="app">
 
@@ -137,10 +136,10 @@
 
         <!-- Main Content -->
         <div class="content">
-          <iron-pages attr-for-selected="data-route" selected="{{route}}">
 
+          <iron-pages attr-for-selected="data-route" selected="[[route]]">
             <section data-route="home">
-              <template is="dom-if" if="{{_is(route, 'home')}}" restamp="true">
+              <template is="dom-if" if="[[_is(route, 'home')]]" restamp="true">
                 <paper-material elevation="1">
                   <h2>Google+ Community</h2>
                   <google-plus-activity key="GOOGLE_PLUS_KEY" i-community="107522288765560200646" community="Tunis JavaScript Meetup Group"></google-plus-activity>
@@ -164,56 +163,52 @@
             </section>
 
             <section data-route="members">
-              <template is="dom-if" if="{{_is(route, 'members')}}" restamp="true">
-                <paper-material elevation="2">
-                  <h2 class="paper-font-display2">Members</h2>
-                </paper-material>
+              <paper-material elevation="2">
+                <h2 class="paper-font-display2">Members</h2>
+              </paper-material>
+              <template is="dom-if" if="[[_is(route, 'members')]]" restamp="true">
                 <meetup-members key="MEETUP_KEY" group="7346152"></meetup-members>
               </template>
             </section>
 
             <section data-route="member-info">
-              <template is="dom-if" if="{{_is(route, 'member-info')}}" restamp="true">
-                <paper-material elevation="2">
-                  <h2 class="paper-font-display2">
+              <paper-material elevation="2">
+                <h2 class="paper-font-display2">
                 Member:<span>{{params.name}}</span>
                 </h2>
+                <template is="dom-if" if="[[_is(route, 'member-info')]]" restamp="true">
                   <div>This is <span>{{params.name}}</span>'s section</div>
-                </paper-material>
-              </template>
+                </template>
+              </paper-material>
             </section>
 
             <section data-route="jobs">
-              <template is="dom-if" if="{{_is(route, 'jobs')}}" restamp="true">
-                <paper-material elevation="2">
-                  <h2 class="paper-font-display2">Jobs</h2>
-                  <p>This is the jobs section</p>
-                  <a href="/jobs/Job">Job</a>
-                </paper-material>
-              </template>
+              <paper-material elevation="2">
+                <h2 class="paper-font-display2">Jobs</h2>
+                <p>This is the jobs section</p>
+                <a href="/jobs/Job">Job</a>
+                <template is="dom-if" if="[[_is(route, 'jobs')]]" restamp="true">
+                </template>
+              </paper-material>
             </section>
 
             <section data-route="job-info">
-              <template is="dom-if" if="{{_is(route, 'job-info')}}" restamp="true">
-                <paper-material elevation="2">
-                  <h2 class="paper-font-display2">
+              <paper-material elevation="2">
+                <h2 class="paper-font-display2">
                 Job:<span>{{params.name}}</span>
                 </h2>
-                  <div>This is <span>{{params.name}}</span>'s section</div>
-                </paper-material>
-              </template>
+                <div>This is <span>{{params.name}}</span>'s section</div>
+              </paper-material>
             </section>
 
             <section data-route="contact">
-              <template is="dom-if" if="{{_is(route, 'contact')}}" restamp="true">
-                <paper-material elevation="2">
-                  <h2 class="paper-font-display2">Contact</h2>
-                  <p>This is the contact section</p>
-                </paper-material>
-              </template>
+              <paper-material elevation="2">
+                <h2 class="paper-font-display2">Contact</h2>
+                <p>This is the contact section</p>
+              </paper-material>
             </section>
-
           </iron-pages>
+
         </div>
       </paper-scroll-header-panel>
     </paper-drawer-panel>
