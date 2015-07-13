@@ -21,7 +21,7 @@ window.GOOGLE_PLUS_KEY = 'AIzaSyDIeycbdMumGfVW36NPu5r-DgmFQBPxGnM';
   // Listen for template bound event to know when bindings
   // have resolved and content has been stamped to the page
   app.addEventListener('dom-change', function () {
-    // document.body.removeAttribute('placeholder');
+    // ...
   });
 
   // See https://github.com/Polymer/polymer/issues/1381

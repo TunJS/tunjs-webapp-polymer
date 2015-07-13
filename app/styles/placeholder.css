@@ -2,25 +2,40 @@
    Placeholder
    ========================================================================== */
 
-#placeholder {
-  opacity: 0;
-  transition: opacity 0.4s;
+body {
+  background: #fafafa;
 }
 
-#paperDrawerPanel {
-  visibility: visible;
-  transition: visibility 0.4s;
+:unresolved {
+  display: block;
+  background: rgba(255, 255, 255, 0.5);
+  /*border: 1px dashed #ccc;*/
+}
+
+#placeholder {
+  transition: visibility 0s linear 0.4s, opacity 0.4s cubic-bezier(.55,0,.1,1);
+  visibility: hidden;
+  opacity: 0;
 }
 
 body[unresolved] > #placeholder {
+  visibility: visible;
+  opacity: 1;
+  transition-delay: 0s;
+}
+
+#paperDrawerPanel {
+  transition: opacity 0.4s cubic-bezier(.55,0,.1,1);
+  visibility: visible;
   opacity: 1;
 }
 
 body[unresolved] > #paperDrawerPanel {
   visibility: hidden;
+  opacity: 0;
 }
 
-#placeholder ph-paper-header-panel {
+#placeholder .ph-paper-header-panel {
   display: block;
   position: absolute;
   top: 0;
@@ -29,7 +44,7 @@ body[unresolved] > #paperDrawerPanel {
   left: 0;
 }
 
-#placeholder ph-paper-header-panel > ph-paper-toolbar {
+#placeholder .ph-paper-header-panel > .ph-paper-toolbar {
   display: block;
   position: absolute;
   top: 0;
@@ -40,11 +55,12 @@ body[unresolved] > #paperDrawerPanel {
   color: #FFFFFF;
 }
 
-#placeholder ph-paper-header-panel > .content {
+#placeholder .ph-paper-header-panel > .content {
   display: block;
   position: absolute;
   top: 56px;
   left: 0;
   right: 0;
   bottom: 0;
+  background: #fafafa;
 }
