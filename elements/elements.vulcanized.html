@@ -9255,7 +9255,8 @@ this._removeChildren();
   }
 
 </style>
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,700">
 <style is="custom-style">
 
   :root {
@@ -9272,7 +9273,7 @@ this._removeChildren();
     };
 
     --paper-font-common-code: {
-      font-family: 'Inconsolata', 'Consolas', 'Source Code Pro', 'Monaco', 'Menlo', monospace;
+      font-family: 'Roboto Mono', 'Consolas', 'Menlo', monospace;
       -webkit-font-smoothing: antialiased;
     };
 
@@ -9460,7 +9461,7 @@ this._removeChildren();
 
     --paper-font-code2: {
       /* @apply(--paper-font-common-code); */
-      font-family: 'Inconsolata', 'Consolas', 'Source Code Pro', 'Monaco', 'Menlo', monospace;
+      font-family: 'Roboto Mono', 'Consolas', 'Menlo', monospace;
       -webkit-font-smoothing: antialiased;
 
       font-size: 14px;
@@ -9470,7 +9471,7 @@ this._removeChildren();
 
     --paper-font-code1: {
       /* @apply(--paper-font-common-code); */
-      font-family: 'Inconsolata', 'Consolas', 'Source Code Pro', 'Monaco', 'Menlo', monospace;
+      font-family: 'Roboto Mono', 'Consolas', 'Menlo', monospace;
       -webkit-font-smoothing: antialiased;
 
       font-size: 14px;
@@ -9689,9 +9690,6 @@ this._removeChildren();
 
 
 
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic">
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Inconsolata:400,700">
-
 
 <style>
 
@@ -9713,7 +9711,7 @@ this._removeChildren();
 
 .paper-font-code2,
 .paper-font-code1 {
-  font-family: 'Inconsolata', 'Consolas', 'Source Code Pro', 'Monaco', 'Menlo', monospace;
+  font-family: 'Roboto Mono', 'Consolas', 'Menlo', monospace;
   -webkit-font-smoothing: antialiased;  /* OS X subpixel AA bleed bug */
 }
 
@@ -13368,6 +13366,7 @@ iron-selector:not(.narrow-layout) #main ::content [paper-drawer-toggle] {
       position: relative;
       padding: 8px;
       outline: none;
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -13603,7 +13602,7 @@ iron-selector:not(.narrow-layout) #main ::content [paper-drawer-toggle] {
       position: relative;
       outline: 0;
 
-      @apply(--paper-menu-colored-focused-item);
+      @apply(--paper-menu-focused-item);
     }
 
     .content > ::content > *:focus:after {
@@ -13613,7 +13612,7 @@ iron-selector:not(.narrow-layout) #main ::content [paper-drawer-toggle] {
       opacity: 0.12;
       content: '';
 
-      @apply(--paper-menu-colored-focused-item-after);
+      @apply(--paper-menu-focused-item-after);
     }
 
     .content > ::content > *[colored]:focus:after {
@@ -13832,7 +13831,7 @@ iron-selector:not(.narrow-layout) #main ::content [paper-drawer-toggle] {
        * The state of the header. The initial value is `HEADER_STATE_EXPANDED`.
        * Depending on the configuration and the `scrollTop` value,
        * the header state could change to
-       * `HEADER_STATE_HIDDEN`, `HEADER_STATE_CONDESED` and `HEADER_STATE_INTERPOLATED`
+       * `HEADER_STATE_HIDDEN`, `HEADER_STATE_CONDENSED` and `HEADER_STATE_INTERPOLATED`
        */
       headerState: {
         type: Number,
@@ -13850,6 +13849,7 @@ iron-selector:not(.narrow-layout) #main ::content [paper-drawer-toggle] {
         value: 0
       },
 
+      /** @type {number|null} */
       _defaultCondsensedHeaderHeight: {
         type: Number,
         value: 0
@@ -13873,15 +13873,11 @@ iron-selector:not(.narrow-layout) #main ::content [paper-drawer-toggle] {
       this.scroller.addEventListener('scroll', this._scrollHandler);
     },
 
-    detached: function() {
-      this.scroller.removeEventListener('scroll', this._scrollHandler);
-    },
-
     /**
      * The header's initial state
      *
      * @property HEADER_STATE_EXPANDED
-     * @type Number
+     * @type number
      */
     HEADER_STATE_EXPANDED: 0,
 
@@ -13889,7 +13885,7 @@ iron-selector:not(.narrow-layout) #main ::content [paper-drawer-toggle] {
      * The header's state when it's hidden.
      *
      * @property HEADER_STATE_HIDDEN
-     * @type Number
+     * @type number
      */
     HEADER_STATE_HIDDEN: 1,
 
@@ -13897,16 +13893,16 @@ iron-selector:not(.narrow-layout) #main ::content [paper-drawer-toggle] {
      * The header's state when it's condensed.
      *
      * @property HEADER_STATE_CONDENSED
-     * @type Number
+     * @type number
      */
-    HEADER_STATE_CONDESED: 2,
+    HEADER_STATE_CONDENSED: 2,
 
     /**
      * The header's state when its progress is somewhere between
      * the `hidden` and `condensed` state.
      *
      * @property HEADER_STATE_INTERPOLATED
-     * @type Number
+     * @type number
      */
     HEADER_STATE_INTERPOLATED: 3,
 
@@ -14001,7 +13997,7 @@ iron-selector:not(.narrow-layout) #main ::content [paper-drawer-toggle] {
           case this.HEADER_STATE_HIDDEN:
             this._transformHeader(this._headerMaxDelta);
             break;
-          case this.HEADER_STATE_CONDESED:
+          case this.HEADER_STATE_CONDENSED:
             this._transformHeader(this._headerMargin);
             break;
         }
@@ -14072,7 +14068,7 @@ iron-selector:not(.narrow-layout) #main ::content [paper-drawer-toggle] {
 
       } else if (this.condenses && this._prevScrollTop >= sTop && sTop > this._headerMargin) {
         y = Math.max(y, this._headerMargin);
-        this._setHeaderState(this.HEADER_STATE_CONDESED);
+        this._setHeaderState(this.HEADER_STATE_CONDENSED);
 
       } else if (y === 0) {
         this._setHeaderState(this.HEADER_STATE_EXPANDED);
@@ -14592,9 +14588,9 @@ iron-selector:not(.narrow-layout) #main ::content [paper-drawer-toggle] {
 
       _computeBarClassName: function(barJustify) {
         var classObj = {
-          center: true,
-          horizontal: true,
-          layout: true,
+          'center': true,
+          'horizontal': true,
+          'layout': true,
           'toolbar-tools': true
         };
 
